@@ -114,25 +114,25 @@ def get_preprocess_dataset(data):
     plt.title('Distribution of the variable Y')
     plt.tight_layout()
     plt.margins()
-    # plt.show()
+    plt.show()
 
     # Boxplot of the features 'inner_text_length'
     data.boxplot(column='inner_text_length', by='y')
     plt.tight_layout()
     plt.ylim(0, 400)
-    # plt.show()
+    plt.show()
 
     # Boxplot of the features 'child_text_length'
     data.boxplot(column='child_text_length', by='y')
     plt.tight_layout()
     plt.ylim(0, 100)
-    # plt.show()
+    plt.show()
 
     # Ditribution of the dummies features
     categorical_data = data.drop(['inner_text_length', 'child_text_length', 'y'], axis=1)
     hist = categorical_data.hist()
     pl.suptitle('Distribution of the dummies variables')
-    # plt.show()
+    plt.show()
 
     # Elimination of dummies features with missing staff
     data = data.drop(['is_sib_a', 'is_sib_input', 'is_desc_comment', 'is_desc_aside', 'is_desc_menu', 'contains_rights_reserved', 'contains_like',
@@ -213,8 +213,6 @@ def get_analyse_multiple(data):
 
     X = data.values[:, 0:17]
     Y = data.values[:, 17]
-
-    # Features selection
 
     # Features selection via test Chi2
     chi2_data = get_feature_selection_test_chi2(X, Y, data)
@@ -303,6 +301,7 @@ def get_analyse_metric(y_test, y_pred):
     precision = precision_score(y_test, y_pred, average="macro")
     recall = recall_score(y_test, y_pred, average="macro")
     f1 = f1_score(y_test, y_pred, average="macro")
+
     print("Accuracy is ", accuracy)
     print("Precision is ", precision)
     print("Recall is ", recall)
@@ -348,13 +347,13 @@ def get_and_fit_classifier(data):
     X = data.values[:, 0:14]
     Y = data.values[:, 14]
 
-    # Get balanced dataset(with classification homogeneous)
+    # Get balanced dataset(with classification homogeneous) if case
     # X, Y = get_data_undersampling(data)
 
     # Spliting dataset into train and test dataset
     X_train, X_test, y_train, y_test = get_split_data(X, Y)
 
-    # Get balanced dataset(with classification homogeneous)
+    # Get balanced dataset(with classification homogeneous) if case
     # X_train, y_train = get_data_oversampling(X_train, y_train)
 
     # Build classifier RandomForest
@@ -379,7 +378,9 @@ def execute_all_analyse_function(data):
 
 
 if __name__ == "__main__":
-    with open('/home/arnaud/Desktop/ML_process_file/DATA_all.csv') as f:
+    with open('/path/to/merged/data/file.csv') as f:
         data = pd.read_csv(f)
 
     execute_all_analyse_function(data)
+
+
